@@ -1,0 +1,147 @@
+@import './../../../scss/helpers/variables';
+
+/* FOOTER */
+#footer {
+	// background-color: #eff2f8;
+	background-color: $background-light-color;
+	padding: 0 0 30px 0;
+	color: #737373;
+	font-size: 14px;
+	margin-top: 48px;
+	.footer-top {
+		padding: 60px 0 30px 0;
+		.footer-info {
+			margin-bottom: 30px;
+			a {
+				line-height: 1;
+				color: #444;
+				transition: 0.3s;
+				&:hover {
+					color: #428bca;
+				}
+			}
+			i {
+				color: $brand-primary;
+				padding: 4px;
+			}
+			.fa-phone {
+				padding-left: 20px;
+				margin-left: 10px;
+			}
+			h3 {
+				font-size: 24px;
+				margin: 0 0 20px 0;
+				padding: 2px 0 2px 0;
+				line-height: 1;
+				font-weight: 700;
+				color: #676767;
+				a {
+					color: #585858;
+				}
+			}
+			p {
+				font-size: 14px;
+				line-height: 24px;
+				margin-bottom: 0;
+				font-family: "Raleway", sans-serif;
+				color: #6e6e6e;
+			}
+		}
+		.social-links {
+			a {
+				font-size: 18px;
+				display: inline-block;
+				background: $brand-primary;
+				color: #fff;
+				line-height: 1;
+				padding: 8px 0;
+				margin-right: 4px;
+				border-radius: 50%;
+				text-align: center;
+				width: 36px;
+				height: 36px;
+				transition: 0.3s;
+				&:hover {
+					background: $brand-primary;
+					color: #fff;
+					text-decoration: none;
+				}
+			}
+		}
+		h4 {
+			font-size: 16px;
+			font-weight: 600;
+			color: #787878;
+			position: relative;
+			padding-bottom: 12px;
+		}
+		.footer-links {
+			margin-bottom: 30px;
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				i {
+					padding-right: 3px;
+					color: $brand-primary;
+					font-size: 10px;
+					line-height: 1;
+				}
+				li {
+					padding: 10px 0;
+					display: flex;
+					line-height: 14px;
+					align-items: center;
+					&:first-child {
+						padding-top: 0;
+					}
+				}
+				a {
+					color: #787878;
+					transition: 0.3s;
+					display: inline-block;
+					line-height: 1;
+					&:hover {
+						color: $brand-primary;
+					}
+				}
+			}
+		}
+		.footer-newsletter {
+			form {
+				margin-top: 30px;
+				background: #fff;
+				padding: 6px 10px;
+				position: relative;
+				border-radius: 4;
+			}
+		}
+	}
+	.copyright {
+		text-align: center;
+		padding-top: 30px;
+		a {
+			color: #fff;
+		}
+	}
+}
+#copyright {
+	padding: 15px 0;
+	position: relative;
+	.copyrightText {
+		font-size: 11px;
+	}
+	.button {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		margin: 10px;
+	}
+	button {
+		border-radius: 50%;
+		border: 0;
+		background-color: $brand-primary;
+		color: #fff;
+		font-size: 14px;
+	}
+}

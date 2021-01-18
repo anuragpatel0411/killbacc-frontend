@@ -1,0 +1,88 @@
+<div class="main">
+    <section id="hero">
+        <div class="hero-container">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+
+                    <div class="carousel-item active" [ngStyle]="{'background-image': 'url(' + bannerImage + ')'}">
+                        <div class="carousel-container">
+                            <div class="carousel-content container">
+                                <h2 class="animated fadeInDown">A Trusting House Keeper</h2>
+                                <!-- <p class="animated fadeInUp">All Killbacc product registered under firm "Shiv Water Corporation"</p> -->
+                                <div class="buttons">
+                                    <span><a class="btn-get-started animated fadeInUp scrollto"  href="\home#contact">Contact Us</a></span>
+                                    <span><a [routerLink]="['/products']" class="btn-get-started animated fadeInUp scrollto">Products</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Widgets-->
+    <section class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <app-product-widget [widgetTitle]="'New Arrivals'" [products]="productsNewArrivals"></app-product-widget>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <app-product-widget [widgetTitle]="'On Sale'" [products]="productsOnSale"></app-product-widget>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <app-product-widget [widgetTitle]="'Best Rated'" [products]="productsBestRated"></app-product-widget>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo -->
+    <section>
+        <app-promo *ngIf="promo" [promo]="promo"></app-promo>
+    </section>
+
+    <section class="bgDark2">
+        <div class="bgDark">
+            <app-our-team></app-our-team>
+        </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section id="about" class="">
+        <div id="appFeatures" class="container">
+            <div class="sectionHeader">
+                About Us
+            </div>
+            <div class="sectionHeader" [ngStyle]="{'font-size': '18px'}">
+                Our Mission
+            </div>
+            <div class="sectionInfo" [ngStyle]="{'color': '#2c2c2c'}">
+                <p>
+                    We, Shiv Group of Companies desires to provide effective, powerful and convenient solutions of the hygienic needs our customers. We delight our customers through a secure supply of our products, outstanding services, technical support and flawless introduction of new products.
+                </p>
+                <p>
+                    We manage the manufacturing and supply chain of our products in a safe, environment friendly and cost-effective manner.
+                </p>
+            </div>
+            <div class="sectionHeader" [ngStyle]="{'font-size': '18px'}">
+                Our Vision
+            </div>
+            <div class="sectionInfo" [ngStyle]="{'color': '#2c2c2c'}">
+                Our vision is achieving “Excellence Through Quality” by continuously improving the value of the products and services that we provide to our customers
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container bgDark">
+            <app-faq></app-faq>
+        </div>
+    </section>
+    
+    <section id="contact">
+        <app-contact></app-contact>
+    </section>
+
+
+
+</div>

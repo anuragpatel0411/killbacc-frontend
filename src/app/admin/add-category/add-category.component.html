@@ -1,0 +1,75 @@
+<div class="admin-main">
+    <div class="head">
+        <div class="title">
+            <span class="info float-right" (click)="openModal(content)">
+                <i class="fa fa-plus"></i>
+                <span> Add New Category</span>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6" *ngFor=" let cat of categories">
+            <div class="card">
+                <div class="card-header">
+                    {{cat.category}}
+                    <span class="float-right">
+                        <i class="fa fa-trash text-danger"(click)="deleteCategory(cat)"></i>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li *ngFor="let subCat of cat.subCategory">{{subCat}}</li>
+                        <span class="noData" *ngIf="cat.subCategory?.length==0">No Sub-category</span>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ADD NEW CATEGORY MODAL -->
+<ng-template #content let-modal class="addCatModal">
+    <form [formGroup]="categoryForm">
+        <div class="modal-header">
+            <h4 class="modal-title">Add New Category</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label>Category *</label>
+                <input type="text" formControlName="category" class="form-control" placeholder="Category" [ngClass]="{ 'is-invalid': (f.category.dirty || f.category.touched) && f.category.errors }">
+                <div *ngIf="f.category.errors && (f.category.dirty || f.category.touched)" class="invalid-feedback">
+                    <div *ngIf="f.category.errors.required">Category is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="subCatBox">
+                    <label>Sub Category</label>
+                    <input type="text" formControlName="subCategory" class="form-control" placeholder="Sub Category">
+                    <button class="btn btn-primary btn-s" (click)="addSubCategory()">Add</button>
+                </div>
+                <div class="dataList">
+                    <div class="noData" *ngIf="!subCategories.length">No Subcategory added</div>
+                    <ul>
+                        <li *ngFor="let subcategorys of subCategories;let i = index">
+                            {{subcategorys}}
+                            <span (click)="removeSubCategory(i)"><i class="fa fa-close"></i></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="button" class="btn btn-primary"  [disabled]="categoryForm.invalid" (click)="addCategory(); modal.close('click')">Add Category</button>
+          </div>
+    </form>
+
+    
+  </ng-template>
+    <div class="addCatLoading" [ngClass]="{'loading': addCatLoading}">
+        <span class="helper" ></span>
+    </div>
+
+  <app-popup-dialog [data]="popupData" *ngIf="showPopup" (response)="popupResponse($event)"></app-popup-dialog>

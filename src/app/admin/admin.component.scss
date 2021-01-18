@@ -1,0 +1,56 @@
+@import './../../scss/helpers/variables';
+
+.navigation {
+	position: sticky;
+	text-align: center;
+	z-index: 1;
+	top: 60px;
+	background-color: $brand-primary;
+	margin-left: 0;
+	margin-right: 0;
+	transition: 0.5s;
+	display: flex;
+	justify-content: space-between;
+	>div{
+		padding: 0;
+		width: 100%;
+		text-align: center;
+		a {
+			font-size: 18px;
+			line-height: 12px;
+			padding: 16.5px 8px;
+			text-decoration: none;
+			color: $brand-secondary;
+			display: block;
+			transition: 0.3s;
+			&:hover {
+				color: $brand-primary;
+				background: $brand-secondary;
+			}
+			@media(max-width: 768px){
+				font-size: 14px;
+			}
+			@media(max-width: 576px){
+				font-size: 12px;
+				padding: 16.5px 0;
+			}
+			@media(max-width: 410px){
+				font-size: 10px;
+				padding: 12px 0;
+			}
+		}
+		.active{
+			color: $brand-primary;
+			background-color: $brand-secondary;
+		}
+	}
+	@media(max-width: 503px){
+		position: relative;
+		top: 0;
+	}
+}
+
+.main{
+	min-height: 50vh;
+	height: auto;
+}

@@ -1,0 +1,24 @@
+api
+    banner upload
+    promo upload
+    promo delete
+    product delete // done
+    product edit
+    category edit
+    category delete-handle products  // category delete done
+    delete category
+
+ui
+    promo add
+    promo list-edit
+    category-delete-handle product
+    prod delete
+    admin dashboard
+    prod delete edit
+
+    reset all counts
+
+
+
+add token in file apis
+        

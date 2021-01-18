@@ -1,0 +1,23 @@
+<!-- FAQs -->
+<div id="faq" class="container colorDark">
+    <div class="sectionHeader colorDark2">
+        Frequently Asked Questions
+    </div>
+    <p class="sectionInfo">
+        Everything you need to know so you can use <b>Killbacc</b> services like a pro.
+    </p>
+    
+    <div class="faqs">
+        <div class="questions" *ngFor="let faq of faqs; let i= index">
+        <div class="q" (click)="faq.show=!faq.show;faq.icon=(faq.icon=='fa-angle-up')?'fa-angle-down':'fa-angle-up'">
+            <i class="fa fa-question-circle"></i>
+            {{faq.question}}
+            <i id="arrow" class="fa {{faq.icon}}"></i>
+        </div>
+        <div id="ans" *ngIf="faq.show" class="a show" #ans>
+            <div [innerHTML]="faq.answer"></div>
+        </div>
+        </div>
+    </div>
+    
+</div>

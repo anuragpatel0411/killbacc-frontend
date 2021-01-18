@@ -1,0 +1,86 @@
+<section class="admin-main ">
+    <div class="head">
+        <div class="title">    
+            <span class="infoText">
+                You can make only one promo active at a time.
+            </span>
+            <span class="info" (click)="openModal(content)">
+                <i class="fa fa-plus"></i>
+                <span>Add</span>
+            </span>        
+        </div>
+    </div>
+    <div class="promos row" *ngIf="promos?.length">
+        <div *ngFor="let promo of promos" class="col-md-6 col-12 promo-list-item">
+            <div class="card">
+                <app-promo *ngIf="promo" [promo]="promo"></app-promo>
+                <div class="">
+                    <button *ngIf="!promo.isActive" class="btn btn-primary btn-sm" (click)="activatePromo(promo._id)">Activate</button>
+                    <button *ngIf="promo.isActive" class="btn btn-primary btn-sm" disabled>Activate</button>
+                    <button class="btn btn-danger btn-sm" (click)="deletePromo(promo)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ADD NEW PROMO MODAL -->
+<ng-template #content let-modal class="addCatModal">
+    <form [formGroup]="promoForm">
+        <div class="modal-header">
+            <h4 class="modal-title">Add New Promo</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label>Pre Heading</label>
+                <input type="text" formControlName="preHeading" class="form-control" placeholder="Pre Heading">
+            </div>
+            <div class="form-group">
+                <label>Heading *</label>
+                <input type="text" formControlName="heading" class="form-control" placeholder="Heading" [ngClass]="{ 'is-invalid': (f.heading.dirty || f.heading.touched) && f.heading.errors }">
+                <div *ngIf="f.heading.errors && (f.heading.dirty || f.heading.touched)" class="invalid-feedback">
+                    <div *ngIf="f.heading.errors.required">Heading is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>After Heading</label>
+                <input type="text" formControlName="afterHeading" class="form-control" placeholder="After Heading">
+            </div>
+            <div class="form-group">
+                <label>Image *<span class="text-primary">resolution prefered 3x2, file size 512kb</span></label>
+                <input id="file" type="file" multiple class="form-control" (change)="onFileChange($event)" formControlName="banner" [ngClass]="{ 'is-invalid': (f.banner.dirty || f.banner.touched) && f.banner.errors }">
+                <div *ngIf="fileErrorSize " class="invalid-feedback">
+                    <div *ngIf="fileErrorSize">Image size more than 512kb will not upload</div>
+                </div>
+                <div *ngIf="f.banner.errors && (f.banner.dirty || f.banner.touched)" class="invalid-feedback">
+                    <div *ngIf="f.banner.errors.required">Image is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Button Text</label>
+                <input type="text" formControlName="buttonText" class="form-control" placeholder="Button Text">
+            </div>
+            <div class="form-group">
+                <label>Button Link</label>
+                <input type="text" formControlName="link" class="form-control" placeholder="Button Link">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="button" class="btn btn-primary"  [disabled]="promoForm.invalid" (click)="addPromo(); modal.close('click')">Add Promo</button>
+          </div>
+    </form>
+
+    
+  </ng-template>
+
+    <div class="addPromoLoading" [ngClass]="{'loading': addPromoLoading}">
+        <span class="helper" ></span>
+    </div>
+
+  <app-popup-dialog [data]="popupData" *ngIf="showPopup" (response)="popupResponse($event)"></app-popup-dialog>

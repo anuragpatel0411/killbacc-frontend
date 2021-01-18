@@ -1,0 +1,16 @@
+@import './../../../scss/helpers/variables';
+@import './../../../scss/helpers/mixins';
+
+.loginBox{
+    margin: 0 auto;
+    max-width: 500px;
+    margin-top: 50px;
+}
+.btn{
+    margin-top: 0;
+}
+button:disabled{
+  border: 1px solid #999999;
+  background-color: $brand-primary;
+  color: #666666;
+}

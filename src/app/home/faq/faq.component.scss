@@ -1,0 +1,29 @@
+@import './../../../scss/helpers/variables';
+
+.faqs .questions{
+    width: 80%;
+    margin: 18px auto;
+    background-color: #fff;;
+  }
+  .questions .q{
+    color: $brand-primary;
+    padding: 10px;
+    font-size: 14px;
+  }
+  .questions .a{
+    padding: 10px;
+    color: rgb(105, 105, 105);
+    font-size: 15px;
+    padding-top: 0;
+    // display: none;    
+  }
+  .questions #arrow{
+    float: right;
+    cursor: pointer;
+    font-size: large;
+    font-weight: 600;
+  }
+  .questions .fa-angle-up{
+    color: #696969;
+  }
+

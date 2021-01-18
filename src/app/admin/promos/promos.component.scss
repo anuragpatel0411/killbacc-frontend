@@ -1,0 +1,66 @@
+@import './../../../scss/helpers/variables';
+
+.head{display: block;
+    .title{
+        display: flex;
+        justify-content: space-between;
+    }
+    .info{
+        cursor: pointer;
+        padding: 8.5px 18px;
+        border-radius: 20px;
+        min-width: 74px;
+        max-height: 38px;
+    }
+}
+.infoText{
+    color: #00f;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    margin-left: 10px;
+}
+.promos{
+    // margin-left: 5px;
+    .card{
+        margin: 10px;
+        padding: 10px 0;
+        text-align: center;
+    }
+}
+
+// modal css
+form{
+    caret-color: black;
+    .form-group{
+        label{
+          font-weight: 550;
+        }
+      }
+    .modal-header{
+        padding: 12px;
+        background: #eff2f8;
+        color: $brand-primary
+    }
+    .modal-body{
+        padding: 12px;
+        label{
+            padding-left: 0;
+        }
+    }
+}
+input[type='file']{
+    padding-top: 7px;
+}
+.addPromoLoading{
+    height: 0px;
+    &.loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        min-height: 100vh;
+        background: url('../../../assets/images/loading.gif') center center no-repeat;
+    }
+  }

@@ -1,0 +1,180 @@
+<div class="product-detail" [ngClass]="{'loading' : productLoading}">
+    <div *ngIf="product">
+      <!-- Page Content-->
+      <div class="container padding-bottom-3x mb-1">
+        <div class="row">
+          <!-- Poduct Gallery-->
+          <div class="col-md-6">
+            <div class="product-gallery">
+              <span *ngIf="product.reduction" class="product-badge text-danger">{{product.reduction}}% Off</span>
+              <div class="product-gallery-image" [ngClass]="{'loading': !imagesLoaded.includes(activeImageUrl)}">
+                <span class="helper"></span><img [hidden]="!checkImageLoaded(activeImageUrl, 'p')" class="img-fluid" src="{{getImageUrl(activeImageUrl, 'p')}}" alt="{{product.name}}" (load)="onImageLoad($event)">
+              </div>
+              <ul class="product-thumbnails">
+                <li *ngFor="let image of product.imageURLs; let i = index" [ngClass]="{'active': i === activeImageIndex}">
+                  <a href="" (click)="onSelectThumbnail($event, i)" class="product-thumbnail-image" [ngClass]="{'loading': !imagesLoaded.includes(activeImageUrl)}">
+                    <span class="helper"></span><img [hidden]="!checkImageLoaded(image, 'i')" src="{{getImageUrl(image, 'i')}}" alt="{{product.name}}" (load)="onImageLoad($event)">
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Product Info-->
+          <div class="col-md-6">
+            <div class="padding-top-2x mt-2 hidden-md-up"></div>
+            <app-rating-star [rating]="product.currentRating"></app-rating-star>
+            <span *ngIf="product.ratings" class="text-muted align-middle">{{ ratingCount }} customer reviews</span>
+            <h2 class="padding-top-1x text-normal">{{ product.name }}</h2>
+            <span class="h2 d-block">
+              <app-price [product]="product"></app-price>
+            </span>
+            <p class="description">{{product.description}}</p>
+
+            <!-- Quantity Dropdown for order -->
+            <!-- <div class="row margin-top-1x">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                  <select class="form-control" id="quantity" (change)="onSelectQuantity($event)">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+            </div> -->
+            <div class="pt-1 mb-2 feature">
+              <div class="title">Features:</div>
+              <ul>
+                <li *ngFor="let feature of product.features">{{feature}}</li>
+              </ul>
+            </div>
+            <div class="padding-bottom-1x mb-2" *ngIf="product.categories">
+              <span class="text-medium">Categories:&nbsp;</span>
+              <span>{{ product.categories.category }}{{' '}}</span>
+              <span *ngIf="product.categories.subCategory" class="subCat">            
+                &#8226;
+                {{ product.categories.subCategory }}
+              </span>
+            </div>
+            <div class="padding-bottom-1x mb-2" *ngIf="product.categories">
+              <span class="text-medium">Seller:&nbsp;</span>
+              <span class="subCat">{{ product.seller || 'N.A.'}}</span>
+            </div>
+            <!-- <div class="form-group">
+              <label for="review_rating">Your Rating</label>
+                <select class="form-control form-control-rounded" name="rating" [(ngModel)]="selectedRating" (change)="onRate()">
+                  <option *ngFor="let value of ratingValues" [value]="value">{{ value }} Stars</option>
+                </select>
+            </div> -->
+            <hr class="mb-3">
+            <!-- <div class="d-flex flex-wrap justify-content-between">
+              <div class="sp-buttons mt-2 mb-2">
+                <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
+                  <i class="icon-heart"></i>
+                </button>
+                <button class="btn btn-primary" (click)="onAddToCart()">
+                  <i class="icon-bag"></i> Add to Cart
+                </button>
+              </div>
+            </div> -->
+            <div class="d-flex flex-wrap justify-content-between rateBox" (click)="openModal(content)">
+              <span class="title">Write product review or Rate Product</span>
+              <span class="icon"><i class="fa fa-angle-right"></i></span>
+            </div>
+  
+          </div>
+        </div>
+        <div class="reviews">
+          <div class="title text-normal">Customer Reviews</div>
+          <span *ngIf="!productReviews" class="clickLink" (click)="getAllReviews()">See Product Reviews </span>
+          <div class="reviewLoading" [ngClass]="{'loading': reviewLoading}">
+            <span class="helper" ></span>
+          </div>
+          <div>
+            <div *ngIf="productReviews && !reviewLoading" class="row"> 
+              <div class="reviewCard col-md-6" *ngFor="let review of productReviews">
+                <div class="data">
+                  <div class="user">
+                    <i class="fa fa-user" [style]="{background: getRandomColor()}"></i>
+                    <span>{{review.name}}</span>
+                  </div>
+                  <div class="rating">
+                    <app-rating-star [rating]="review.ratingStar"></app-rating-star>
+                  </div>
+                  <div class="date">
+                    Reviewed on {{Dates(review.date) | date}}
+                  </div>
+                  <div class="review">
+                    {{review.review}}
+                  </div>
+                </div>
+              </div>
+          </div>
+          </div>
+          <div class="noData" *ngIf="productReviews?.length==0 && !reviewLoading">
+            No customer reviews
+          </div>
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+
+  <!-- Rate PRoduct MODAL -->
+<ng-template #content let-modal class="rateProd">
+  <form [formGroup]="rateProd">
+      <div class="modal-header">
+        <h4 class="modal-title">Rate/Review {{product.name}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': (f.name.dirty || f.name.touched) && f.name.errors }" >
+            <div *ngIf="f.name.errors && (f.name.dirty || f.name.touched)" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="subCatBox">
+                <label>Email</label>
+                <input type="enail" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{ 'is-invalid': (f.email.dirty || f.email.touched) && f.email.errors }">
+                <div *ngIf="f.email.errors && (f.email.dirty || f.email.touched)" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email is required.</div>
+                  <div *ngIf="f.email.errors.pattern">Enter correct email</div>
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="subCatBox">
+              <label>Rate:</label> 
+              <div class="rating-stars">
+                <i [ngClass]="{'filled': rating > 0}" class="fa fa-star" (click)="rate(1)"></i>
+                <i [ngClass]="{'filled': rating > 1}" class="fa fa-star" (click)="rate(2)"></i>
+                <i [ngClass]="{'filled': rating > 2}" class="fa fa-star" (click)="rate(3)"></i>
+                <i [ngClass]="{'filled': rating > 3}" class="fa fa-star" (click)="rate(4)"></i>
+                <i [ngClass]="{'filled': rating > 4}" class="fa fa-star" (click)="rate(5)"></i>
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="subCatBox">
+              <label>Write a review</label>
+              <textarea  formControlName="review" class="form-control" placeholder="Write a review" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary"  [disabled]="rateProd.invalid" (click)="rateProduct(); modal.close('click')">Submit</button>
+      </div>
+  </form> 
+
+</ng-template>
+<app-popup-dialog [data]="popupData" *ngIf="showPopup" (response)="popupResponse($event)"></app-popup-dialog>

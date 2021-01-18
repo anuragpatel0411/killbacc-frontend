@@ -1,0 +1,63 @@
+<section class="admin-main ">
+    <div class="head">
+        <div class="title">
+            <span class="infoText">
+                You can make only one banner active at a time.
+            </span>
+            <span class="info" (click)="openModal(content)">
+                <i class="fa fa-plus"></i>
+                <span>Add</span>
+            </span>        
+        </div>
+    </div>
+    <div class="banners row" *ngIf="banners?.length">
+        <div *ngFor="let banner of banners" class="col-md-6 col-12 banner-list-item">
+            <div class="card">
+                <div class="bannerImage" [ngStyle]="{'background-image': 'url(' + url.api + '/banners/' + banner.image + ')'}">
+                </div>
+                <div class="">
+                    <button *ngIf="!banner.isActive" class="btn btn-primary btn-sm" (click)="activateBanner(banner._id)">Activate</button>
+                    <button *ngIf="banner.isActive" class="btn btn-primary btn-sm" disabled>Activate</button>
+                    <button class="btn btn-danger btn-sm" (click)="deleteBanner(banner)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ADD NEW Banner MODAL -->
+<ng-template #content let-modal class="addCatModal">
+    <form [formGroup]="bannerForm">
+        <div class="modal-header">
+            <h4 class="modal-title">Add New Banner</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group" *ngIf="bannerCount<2; else: noAdd">
+                <label>Image *<span class="text-primary">resolution prefered 3x2, file size 1Mb</span></label>
+                <input id="file" type="file" multiple class="form-control" (change)="onFileChange($event)" formControlName="banner" [ngClass]="{ 'is-invalid': (f.banner.dirty || f.banner.touched) && f.banner.errors }">
+                <div *ngIf="fileErrorSize " class="invalid-feedback">
+                    <div *ngIf="fileErrorSize">Image size more than 1mb will not upload</div>
+                </div>
+                <div *ngIf="f.banner.errors && (f.banner.dirty || f.banner.touched)" class="invalid-feedback">
+                    <div *ngIf="f.banner.errors.required">Image is required</div>
+                </div>
+            </div>
+            <ng-template class="infoText" #noAdd>You can only add maximum 2 banners, if you want to add new then delete one first.</ng-template>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="button" class="btn btn-primary" *ngIf="bannerCount<2" [disabled]="bannerForm.invalid" (click)="addBanner(); modal.close('click')">Add Banner</button>
+          </div>
+    </form>
+
+    
+  </ng-template>
+    <div class="addBannerLoading" [ngClass]="{'loading': addBannerLoading}">
+        <span class="helper" ></span>
+    </div>
+  <app-popup-dialog [data]="popupData" *ngIf="showPopup" (response)="popupResponse($event)"></app-popup-dialog>

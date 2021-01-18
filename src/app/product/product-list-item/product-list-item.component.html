@@ -1,0 +1,104 @@
+<div class="product-card" [ngClass]="{'product-list': displayMode === 'list'}">
+
+    <div *ngIf="product.reduction" class="product-badge text-danger reduction">{{ product.reduction }}% Off</div>
+  
+    <div class="product-rating">
+      <app-rating-star [rating]="product.currentRating"></app-rating-star>
+    </div>
+  
+    <a class="product-thumb" [ngClass]="{'loading': imageLoading}" routerLink="/products/{{product._id}}">
+      <span class="helper"></span><img [hidden]="imageLoading" (load)="onImageLoad()" src="{{url.api}}/products/{{product.imageURLs[0]}}" alt="{{product.name}}"/>
+    </a>
+    <div class="product-info">
+      <h3 class="product-title">
+        <a routerLink="/products/{{product._id}}">{{product.name}}</a>
+      </h3>
+      <h4 class="product-price"><app-price [product]="product"></app-price></h4>
+      <p *ngIf="displayMode === 'list'" class="hidden-xs-down">{{product.description}}</p>
+      <div *ngIf="admin" class="product-buttons">
+        <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
+          <i class="icon-heart"></i>
+        </button> -->
+        <!-- <button class="btn btn-outline-primary btn-sm" (click)="onAddToCart()">Add to Cart</button> -->
+  
+        <button *ngIf="admin" class="btn btn-primary btn-sm" (click)="openModal(content)">
+          Edit
+        </button>
+        <button *ngIf="admin" class="btn btn-danger btn-sm" (click)="deleteProduct(product)">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- Edit PRoduct MODAL -->
+<ng-template #content let-modal class="updateProd">
+    <form [formGroup]="updateProd">
+      <div class="modal-header">
+          <h4 class="modal-title">Edit {{product.name}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Product Name *</label>
+            <input type="text" formControlName="name" class="form-control" placeholder="Product Name" [ngClass]="{ 'is-invalid': (f.name.dirty || f.name.touched) && f.name.errors }">
+            <div *ngIf="f.name.errors && (f.name.dirty || f.name.touched)" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Product Name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description of Product *</label>
+            <textarea type="text" formControlName="description" class="form-control" rows="2" placeholder="Description of Product" [ngClass]="{ 'is-invalid': (f.description.dirty || f.description.touched) && f.description.errors }"></textarea>
+            <div *ngIf="f.description.errors && (f.description.dirty || f.description.touched)" class="invalid-feedback">
+                <div *ngIf="f.description.errors.required">Description is required</div>
+            </div>
+          </div>
+          <div class="form-group features">
+            <div class="row">
+              <div class="col-12 featureBox">
+                  <label>Features</label>
+                  <input type="text" formControlName="feature" class="form-control" placeholder="New Feature">
+                  <button class="btn btn-primary btn-s" (click)="addFeature()">Add</button>
+              </div>
+              <div class="col-md-6 dataList">
+                  <div class="noData" *ngIf="!features.length">No feature added</div>
+                  <ul>
+                      <li *ngFor="let featureData of features;let i = index">
+                          {{featureData}}
+                          <span (click)="removeFeature(i)"><i class="fa fa-close"></i></span>
+                      </li>
+                  </ul>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+              <label>Current Price *</label>
+              <input type="number" formControlName="currentPrice" class="form-control" placeholder="Current Price" [ngClass]="{ 'is-invalid': (f.currentPrice.dirty || f.currentPrice.touched) && f.currentPrice.errors }" (keyup)="calcDiscount()">
+              <div *ngIf="f.currentPrice.errors && (f.currentPrice.dirty || f.currentPrice.touched)" class="invalid-feedback">
+                  <div *ngIf="f.currentPrice.errors.required">Field is required</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="subCatBox">
+                  <label>M.R.P.</label>
+                  <input type="number" formControlName="mrp" class="form-control" placeholder="M.R.P." (keyup)="calcDiscount()" [ngClass]="{ 'is-invalid': (f.mrp.dirty || f.mrp.touched) && f.mrp.errors }">
+                  <div *ngIf="f.mrp.errors && (f.mrp.dirty || f.mrp.touched)" class="invalid-feedback">
+                    <div *ngIf="f.mrp.errors.pattern">M.R.P should be greater than or equal to Current Price</div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+          <button type="button" class="btn btn-primary"  [disabled]="updateProd.invalid" (click)="updateProduct(); modal.close('click')">Update Product</button>
+        </div>
+  </form> 
+
+</ng-template>
+
+  <app-popup-dialog [data]="popupData" *ngIf="showPopup" (response)="popupResponse($event)"></app-popup-dialog>
+

@@ -1,0 +1,95 @@
+<section class="admin-main">
+    <div class="body row">
+        <div class="col-md-6 col-12" *ngFor="let message of messages">
+            <div class="userMessage">
+                <div class="msgDetail">
+                    <span *ngIf="!message.replied" class="newMsg">&nbsp;</span>
+
+                    <div class="sub-date">
+                        <span><b>Subject: </b>{{message.subject}}</span>
+                        <span>{{Dates(message.dateTime) | date}}</span>
+                    </div>
+                    <div class="date">
+                        <b>From: </b>{{message.name}}
+                    </div>
+                    <div class="email-morebtn">
+                        <a href="mailto: {{message.email}}">{{message.email}}</a>
+                        <span *ngIf="message.collapsed" (click)="message.collapsed=false">View Message</span>
+                        <span *ngIf="!message.collapsed" (click)="message.collapsed=true">Hide Message</span>
+                    </div>                
+                </div>
+                <div class="msg" *ngIf="!message.collapsed">
+                    <div class="message">
+                        {{message.message}}
+                    </div>
+                    <span class="replyBtn" *ngIf="!message.replied" (click)="openModal(content)">
+                        Reply
+                    </span>
+                    <div class="reply" *ngIf="message.replied">
+                        <b>Reply: </b>{{message.reply}}
+                    </div>
+                </div>
+                
+                <!-- ADD NEW CATEGORY MODAL -->
+                <ng-template #content let-modal>
+                    <form [formGroup]="replyForm">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Reply {{message.name}}</h4>
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="userMessage">
+                                <div class="msgDetail">
+                                    <div class="sub-date">
+                                        <span><b>Subject: </b>{{message.subject}}</span>
+                                        <span>{{Dates(message.dateTime) | date}}</span>
+                                    </div>
+                                    <div class="date">
+                                        <b>From: </b>{{message.name}}
+                                    </div>
+                                    <div class="email-morebtn">
+                                        <a href="mailto: {{message.email}}">{{message.email}}</a>
+                                    </div>                
+                                </div>
+                                <div class="msg">
+                                    <div class="message">
+                                        {{message.message}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Reply</label>
+                                        <textarea maxlength="300" class="form-control" name="msg" placeholder="Message *" rows="5" formControlName="reply" rows="8"></textarea>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                            <button type="button" class="btn btn-primary"  [disabled]="replyForm.invalid" (click)="reply(message); modal.close('click')">Send</button>
+                        </div>
+                    </form>
+
+                    
+                </ng-template>
+                <!-- <div *ngIf="!message.replied" class="text-danger">
+                    <form  [formGroup]="replyForm">
+                        <div class="form-input">
+                          <textarea maxlength="300" name="msg" placeholder="Message *" rows="5" formControlName="reply" [ngClass]="{ 'is-invalid': (f.reply.dirty || f.reply.touched) && f.reply.errors }"></textarea>
+                        </div>
+                        <div class="button">
+                          <button [disabled]="replyForm.invalid" (click)="reply(message._id)">Send Message</button>
+                        </div>
+                      </form>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-12">
+            <span class="more" *ngIf="pageNo" (click)="loadMore()">Load More Messages</span>
+            <span class="more" *ngIf="!pageNo">No More Message, You have reached at bottom of page.</span>
+        </div>
+    </div>
+
+</section>
+<app-popup-dialog [data]="popupData" *ngIf="showPopup" (response)="popupResponse($event)"></app-popup-dialog>
+

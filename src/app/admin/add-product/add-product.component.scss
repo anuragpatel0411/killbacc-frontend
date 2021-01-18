@@ -1,0 +1,113 @@
+@import './../../../scss/helpers/variables';
+
+
+.addProduct{
+    padding: 18px;
+    padding-top: 0;
+}
+
+form{
+    .form-group{
+        label{
+          font-weight: 550;
+        }
+    }
+    .submitBtn{
+        text-align: center;
+    }
+}
+textarea{
+    resize: none;
+}
+.dataList{
+    margin-top: 26px;
+    font-size: 14px;
+    color: #484848;
+    i{
+        padding-left: 18px;
+        color: rgb(196, 15, 15)
+    }
+    .noData{
+        color: #949494;
+        font-size: 14px;
+        font-weight: 550;
+    }
+    select{
+        option{
+            color:red
+        }
+    }
+}
+.invalid-feedback-file{
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+.features{
+    .featureBox{
+        position: relative;
+        margin: 0 auto;
+        input{
+            width: 100%;
+            border-radius: 100px;
+            padding: 10px 100px 10px 20px;
+            line-height: 1;
+            box-sizing: border-box;
+            outline: none;
+        }
+        button{
+            position: absolute;
+            right: 15px;
+            top: 30.5px;
+            bottom: 0px;
+            border: 0;
+            background-color: $brand-primary;
+            color: #fff;
+            outline: none;
+            margin: 0;
+            padding: 0 24px;
+            border-radius: 100px;
+            z-index: 0;
+            font-size: 14px;
+            outline: none;
+        }
+    }
+}
+input[type='file']{
+    padding-top: 7px;
+}
+
+// remove arrow from number type
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/* You can add global styles to this file, and also import other style files */
+form{
+    font-family: Arial, Helvetica, sans-serif;
+    caret-color: #5b5b5b;
+}
+.ng-select-disabled{
+    background-color: #f5f5f5;
+}
+
+.addProductLoading{
+    height: 0px;
+    &.loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        min-height: 100vh;
+        background: url('../../../assets/images/loading.gif') center center no-repeat;
+    }
+  }

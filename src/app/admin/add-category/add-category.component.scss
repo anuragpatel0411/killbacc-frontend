@@ -1,0 +1,113 @@
+@import './../../../scss/helpers/variables';
+
+// div{
+//     margin: 0;
+//     padding: 0;
+// }
+.container{
+    margin: 0 auto;
+}
+.head{
+    .info{
+        cursor: pointer;
+        padding: 8.5px 18px;
+        background: $brand-secondary;
+        border-radius: 20px;
+    }
+}
+.card{
+    border: 2px solid $brand-primary;
+    margin: 18px;
+    .card-header{
+        padding: 5px 12px;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: $brand-primary;
+        background: $background-light-color;
+        font-size: 16px;
+    }
+    .card-body{
+        padding: 5px 12px;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: #111;
+        font-size: 14px;
+    }
+}
+form{
+    .form-group{
+        label{
+          font-weight: 550;
+        }
+      }
+    .modal-header{
+        padding: 12px;
+        background: #eff2f8;
+        color: $brand-primary
+    }
+    .modal-body{
+        padding: 12px;
+        label{
+            padding-left: 0;
+        }
+    }
+}
+.dataList{
+    margin-top: 6px;
+    font-size: 14px;
+    color: #484848;
+    i{
+        padding-left: 18px;
+        color: rgb(196, 15, 15)
+    }
+    select{
+        option{
+            color:red
+        }
+    }
+}
+.subCatBox{
+    position: relative;
+    margin: 0 auto;
+    input{
+        width: 100%;
+        border-radius: 100px;
+        padding: 10px 100px 10px 20px;
+        line-height: 1;
+        box-sizing: border-box;
+        outline: none;
+    }
+    button{
+        position: absolute;
+        right: 1px;
+        top: 30.5px;
+        bottom: 0px;
+        border: 0;
+        background-color: $brand-primary;
+        color: #fff;
+        outline: none;
+        margin: 0;
+        padding: 0 24px;
+        border-radius: 100px;
+        z-index: 2;
+        font-size: 14px;
+        outline: none;
+    }
+}
+.noData{
+    color: #949494;
+    font-size: 12px;
+    font-weight: 550;
+}
+.addCatLoading{
+    height: 0px;
+    &.loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        min-height: 100vh;
+        background: url('../../../assets/images/loading.gif') center center no-repeat;
+    }
+  }

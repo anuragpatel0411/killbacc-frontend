@@ -1,0 +1,72 @@
+<!-- CONTACT -->
+<div id="appFeatures" class="container">
+    <div class="sectionHeader">
+      Contact
+    </div>
+    <p class="sectionInfo">
+        Contact us to get direct support from our team.
+    </p>
+  
+    <div class="row detail">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-6">
+            <div class="cards">
+              <div><i class="fa fa-map-marker"></i></div>
+              <div class="titleCard">Address</div>
+              <div class="content">Industrial Area, Chhauchh,</div>
+              <div class="content">Lakhimpur Kheri, </div>
+              <div class="content">U.P. INDIA 262701</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="cards">
+              <div><i class="fa fa-phone"></i></div>
+              <div class="titleCard">Call us</div>
+              <div class="content"><a href="tel:+918429555777">+91 842 955 5777</a></div>
+              <div class="content"><a href="tel:+919519265226">+91 951 926 5226</a></div>
+              <div class="content"><a href="tel:+919792713887">+91 979 271 3887</a></div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="cards">
+              <div><i class="fa fa-envelope"></i></div>
+              <div class="titleCard">Email us </div>
+              <div class="content"><a href="mailto:shivwatercorporation@gmail.com">shivwatercorporation@gmail.com </a></div>
+              <!-- <div class="content"><a href="mailto:admin@killbacc.com">admin@killbacc.com</a></div> -->
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="cards">
+              <div><i class="fa fa-clock-o"></i></div>
+              <div class="titleCard">Working Hours</div>
+              <div class="content">Mon - Fri: 9AM to 7PM  </div>
+              <div class="content">Sunday: 9AM to 7PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <form  [formGroup]="contactForm">
+          <div class="form-input">
+            <input type="text" name="name" placeholder="Your Name *" formControlName="name" [ngClass]="{ 'is-invalid': (f.name.dirty || f.name.touched) && f.name.errors }">
+          </div>
+          <div class="form-input">
+            <input type="email" name="email" placeholder="Your Email *" formControlName="email" [ngClass]="{ 'is-invalid': (f.email.dirty || f.email.touched) && f.email.errors }">
+          </div>
+          <div class="form-input">
+            <input type="text" name="subject" placeholder="Subject *" formControlName="subject" [ngClass]="{ 'is-invalid': (f.subject.dirty || f.subject.touched) && f.subject.errors }">
+          </div>
+          <div class="form-input">
+            <textarea maxlength="300" name="msg" placeholder="Message *" rows="5" formControlName="message" [ngClass]="{ 'is-invalid': (f.message.dirty || f.message.touched) && f.message.errors }"></textarea>
+          </div>
+          <div class="button">
+            <button [disabled]="contactForm.invalid" (click)="sendMessage()">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+  </div>
+
+<app-popup-dialog [data]="popupData" *ngIf="showPopup" (response)="popupResponse($event)"></app-popup-dialog>

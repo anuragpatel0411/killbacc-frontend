@@ -1,0 +1,235 @@
+@import './../../../scss/helpers/variables';
+// @import './../../../scss/helpers/mixins';
+@import './../../../scss/components/social-buttons';
+
+
+// Product Gallery
+.product-gallery {
+  position: relative;
+
+  padding: {
+    top: 15px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+  }
+
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+
+  .product-badge {
+    top: 25px;
+    left: 15px;
+  }
+  .product-thumbnails {
+    display: block;
+    margin: 0;
+    margin-top: $grid-vertical-step; //~24px
+    padding: 0;
+    list-style: none;
+    text-align: center;
+
+    > li {
+      display: inline-block;
+      margin: 0 3px 10px;
+
+      > a {
+        display: block;
+        width: 94px;
+        height: 94px;
+        text-align: center;
+        transition: border-color .25s;
+        border: 1px solid $border-color;
+        border-radius: $border-radius-base;
+        overflow: hidden;
+        img{
+          max-height: 94px;
+          max-width: 100%;
+          vertical-align: middle;
+        }
+      }
+
+      &.active > a {
+        border-color: $brand-primary;
+        cursor: default;
+      }
+    }
+  }
+
+  .product-thumbnail-image {
+    &.loading {
+      min-height: 80px;
+      background: url('../../../assets/images/loading.gif') center center no-repeat;
+    }
+  }
+}
+
+.product-gallery-image {
+  min-height: auto;
+  max-height: 400px;
+  text-align: center;
+  img {
+    vertical-align: middle;
+    max-height: 400px;
+    max-width: 100%;
+  }
+
+  &.loading {
+    min-height: 200px;
+    background: url('../../../assets/images/loading.gif') center center no-repeat;
+  }
+}
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.product-detail {
+  margin-top: 1rem;
+  &.loading {
+      min-height: 200px;
+      background: url('../../../assets/images/loading.gif') center center no-repeat;
+  }
+}
+.description{
+  font-style: italic;
+  font-size: 14px;
+  color: #858585;
+  margin-bottom: 5px;
+}
+.feature{
+  .title{
+    font-size: 16px;
+    padding-left: 0;
+    padding-bottom: 0;
+    font-weight: 550;
+  }
+  ul{
+    padding-left: 28px;
+    li{
+      font-size: 15px;
+    }
+  }
+}
+.subCat {
+  color: $gray;;
+}
+
+// IE10+ specific styles
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .product-gallery .gallery-item { display: none !important; }
+}
+// Microsoft Edge specific styles
+@supports (-ms-ime-align: auto) {
+  .product-gallery .gallery-item { display: none !important; }
+}
+
+.rateBox{
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  cursor: pointer;
+  .title{
+    font-size: 16px;
+    padding: 5px 10px;
+    font-weight: 550;
+    margin-bottom: 0;
+  }
+  .icon{
+    padding: 4px 10px;
+  }
+}
+form{
+  .form-group{
+      label{
+        font-weight: 550;
+      }
+    }
+  .modal-header{
+      padding: 12px;
+      background: #eff2f8;
+      color: $brand-primary
+  }
+  .modal-body{
+      padding: 12px;
+      label{
+          padding-left: 0;
+      }
+  }
+}
+
+.rating-stars {
+  display: inline-block;
+  margin-left: 10px;
+  > i {
+    display: inline-block;
+    margin-right: 10px;
+    color: lighten($gray, 15%);
+    font-size: 18px;
+    cursor: pointer;
+    &.filled { color: $brand-warning; }
+    &:last-child { margin-right: 0; }
+  }
+}
+.align-middle{
+  margin-left: 10px;
+}
+
+.reviews{
+  .reviewLoading{
+    height: 0px;
+    &.loading {
+      min-height: 80px;
+      background: url('../../../assets/images/loading.gif') center center no-repeat;
+    }
+  }
+  .title{
+    font-size: 18px;
+    font-weight: 600;
+    color: $gray-darker;
+    padding: 10px 0 5px 0;
+  }
+  .clickLink{
+    color: #00f;
+    margin-top: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+  }
+  .noData{
+    font-size: 18px;
+    color: $gray;
+  }
+  .reviewCard{
+    .data{
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid rgb(182, 182, 182);
+      .user{
+        .fa{
+          min-height: 34px;
+          min-width: 34px;
+          text-align: center;
+          font-size: 24px;
+          padding: 4px;
+          border-radius: 17px;
+          color: #fff;
+        }
+        span{
+          font-size: 14px;
+          padding: 10px;
+          line-height: 14px;
+        }
+      }
+      .date{
+        font-size: 12px;
+        font-weight: 550;
+        color: $gray;
+      }
+      .review{
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    } 
+  }
+}

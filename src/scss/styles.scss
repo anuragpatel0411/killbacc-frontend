@@ -1,0 +1,48 @@
+//Import Google Fonts (Maven Pro)
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900');
+
+
+// Helpers: Variables, Mixins and Placeholders
+@import 'helpers/variables';
+@import 'helpers/mixins';
+@import 'helpers/placeholders';
+
+
+// Import third party lib styles
+// @import "~ngx-toastr/toastr-bs4-alert";
+
+
+// Base
+@import 'base/scaffolding';
+@import 'base/utilities';
+
+
+// Components
+@import 'components/icons';
+@import 'components/typography';
+@import 'components/forms';
+@import 'components/tables';
+@import 'components/buttons';
+@import 'components/social-buttons';
+@import 'components/navs';
+@import 'components/card';
+@import 'components/accordion';
+@import 'components/pagination';
+@import 'components/comments';
+@import 'components/tooltips';
+@import 'components/dropdown';
+@import 'components/list-group';
+@import 'components/alert';
+@import 'components/modal';
+@import 'components/progress';
+@import 'components/gallery';
+@import 'components/countdown';
+@import 'components/widgets';
+@import 'components/steps';
+@import 'components/banners';
+
+
+// Layout
+@import 'layout/section';
+@import 'layout/header';
+@import 'layout/offcanvas-menu';

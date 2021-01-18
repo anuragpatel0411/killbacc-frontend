@@ -1,0 +1,25 @@
+@import './../../../scss/helpers/variables';
+
+.body{
+    margin-top: 20px;
+    margin-left: 5px;
+    .card{
+        padding: 5px;
+        margin: 5px;
+    }
+}
+
+.card{
+    text-align: center;
+    .card-header{
+        background-color: $background-light-color;
+        font-size: large;
+        font-weight: 600;
+        color: darkblue;
+    }
+    .card-body{
+        font-size: 48px;
+        font-weight: 800;
+        color: $brand-primary;
+    }
+}

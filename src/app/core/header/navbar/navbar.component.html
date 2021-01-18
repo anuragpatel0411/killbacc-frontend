@@ -1,0 +1,114 @@
+<header id="header">
+    <div class="logo float-left">
+        <!-- <h1 class="text-light"><a [routerLink]="['/home']"><span>KillBacc</span></a></h1> -->
+        <span class="text-light"><a [routerLink]="['/home']"><img src="./../../../../assets/logo.jpg" height="80px" alt="killbac"></a></span>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="searchWrapper desktopSearch" *ngIf="!admin">
+        <div class="search">
+            <input type="text" class="searchTerm" placeholder="What are you looking for?" [(ngModel)]="searchText" (keyup)="viewSearchResult=true">
+            <button type="submit" class="searchButton" (click)="viewSearchResult=false" [routerLink]="['products', (productSearchList | appFilter: searchText)[0]?._id]">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <!-- search results -->
+        <ul class="list-group list-group-flush" *ngIf="searchText && viewSearchResult">
+            <!-- results of ngFor is passed to appFilter with argument searchText -->
+            <li class="list-group-item" *ngFor="let searchItems of productSearchList | appFilter: searchText" [routerLink]="['products', searchItems._id]" (click)="viewSearchResult=false">
+                    {{searchItems.name}}
+            </li>
+            <li class="list-group-item noResult" *ngIf="!(productSearchList | appFilter: searchText).length"(click)="viewSearchResult=false">
+                No result Found
+            </li>
+        </ul> 
+    </div>
+    
+    <!-- <span class="icon-nav"><a [routerLink]="['/home']"><img src="./../../../../assets/logo.jpg" height="57px" class=""></a></span> -->
+
+    <!-- DESKTOP -->
+    <nav *ngIf="url!='/create-form'" class="navbar navbar-expand-lg navbar-light nav-menu float-right desktop">
+        <div class="collapse navbar-collapse">
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{activeHome}}">
+                    <a class="nav-link" href="\home#hero">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item {{activeProducts}}" >
+                    <a class="nav-link" [routerLink]="['/products']">Products</a>
+                </li>
+                <li class="nav-item {{activeAbout}}">
+                    <a class="nav-link" href="\home#about">About Us</a>
+                </li>
+                <li class="nav-item {{activeFAQ}}">
+                    <a class="nav-link" href="\home#faq">F.A.Q</a>
+                </li>
+                <li class="nav-item {{activeContact}}" >
+                    <a class="nav-link" href="\home#contact">Contact Us</a>
+                </li>
+                <li class="nav-item {{activeAdmin}}" *ngIf="admin">
+                    <a class="nav-link" [routerLink]="['/admin']">Admin Dashboard</a>
+                </li>
+                <li class="nav-item logout" *ngIf="admin">
+                    <a class="nav-link" (click)="logoutAdmin()">Logout Admin</a>
+                </li>
+            </ul>
+        </div>  
+    </nav>
+
+    <!-- MOBILE -->
+    <nav class="navbar navbar-light nav-menu float-right mobile">   
+        <button class="navbar-toggler float-right" type="button" (click)="navbarShow()">
+            <span class="navbar-toggler-icon float-right"></span>
+        </button>      
+        <div class="topbar {{show}}" id="navbarToggler">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{activeHome}}">
+                    <a class="nav-link" href="\home#hero" (click)="navbarShow()">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item {{activeProducts}}">
+                    <a class="nav-link" [routerLink]="['/products']" (click)="navbarShow()">Products</a>
+                </li>
+                <li class="nav-item {{activeAbout}}">
+                    <a class="nav-link" href="\home#about" (click)="navbarShow()">About Us</a>
+                </li>
+                <li class="nav-item {{activeFAQ}}" >
+                    <a class="nav-link" href="\home#faq" (click)="navbarShow()">F.A.Q</a>
+                </li>
+                <li class="nav-item {{activeContact}}" >
+                    <a class="nav-link" href="\home#contact" (click)="navbarShow()">Contact Us</a>
+                </li>
+                <li class="nav-item" *ngIf="admin">
+                    <a class="nav-link" [routerLink]="['/admin']" (click)="navbarShow()">Admin Dashboard</a>
+                </li>
+                <li class="nav-item" *ngIf="admin">
+                    <a class="nav-link" href="\home#contact" (click)="navbarShow(); logoutAdmin()">Logout Admin</a>
+                </li>
+            </ul>
+        </div>  
+    </nav>
+
+    
+</header>
+<!-- Search Bar Mobile -->
+<div class="searchWrapper mobileSearch" *ngIf="!admin && dispSearch">
+    <div class="search">
+        <input type="text" class="searchTerm" placeholder="What are you looking for?" [(ngModel)]="searchText" (keyup)="viewSearchResult=true">
+        <button type="submit" class="searchButton" (click)="viewSearchResult=false" [routerLink]="['products', (productSearchList | appFilter: searchText)[0]?._id]">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+    <!-- search results -->
+    <ul class="list-group list-group-flush" *ngIf="searchText && viewSearchResult">
+        <!-- results of ngFor is passed to appFilter with argument searchText -->
+        <li class="list-group-item" *ngFor="let searchItems of productSearchList | appFilter: searchText">
+            <a [routerLink]="['products', searchItems._id]" (click)="viewSearchResult=false">
+                {{searchItems.name}}
+            </a>
+        </li>
+        
+        <li class="list-group-item noResult" *ngIf="!(productSearchList | appFilter: searchText).length"(click)="viewSearchResult=false">
+            No result Found
+        </li>
+    </ul> 
+</div>

@@ -1,0 +1,131 @@
+<section class="admin-main ">
+    <div class="head">
+        <div class="title">
+            <span class="infoText">If your product category is not in list then first add new porduct category.</span>
+        </div>
+    </div>
+    <div class="addProduct">
+        <form [formGroup]="productForm" class="row">
+                <div class="form-group col-md-6">
+                    <label>Category</label>
+    
+                    <ng-select  formControlName="category" [clearable]="false" class="form-control custom" placeholder="Select Category"  (change)="changeCategory($event)">
+                        <ng-option *ngFor="let cat of categories" value="{{cat.category}}">{{cat.category}}</ng-option>
+                        <ng-option  value="other">Other</ng-option>
+                    </ng-select>
+    
+                    <!-- <select  formControlName="category" class="form-control dropDown" (change)="changeCategory($event)">
+                        <option value="">Choose Category...</option>
+                        <option *ngFor="let cat of categories" value="{{cat.category}}">{{cat.category}}</option>
+                        <option value=".  Others">Others</option>
+                    </select> -->
+                    <div *ngIf="f.category.errors" class="invalid-feedback">
+                        <div *ngIf="f.category.errors.required">Category is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Sub Category *</label>
+    
+                    <ng-select  formControlName="subCategory" placeholder="Select Sub Category" class="form-control custom" (change)="changeSubCategory($event)" >
+                        <ng-option *ngFor="let subcat of subCategories?.subCategory" value="{{subcat}}">{{subcat}}</ng-option>
+                        <ng-option  value="other">Other</ng-option>
+                    </ng-select>
+    
+    
+                    <!-- <select  formControlName="subCategory" class="form-control" (change)="changeSubCategory($event)" disabled>
+                        <option value="">Choose Sub Category...</option>
+                        <option *ngFor="let subcat of subCategories?.subCategory" value="{{subcat}}">{{subcat}}</option>
+                        <option value=".  Others">Others</option>
+                    </select> -->
+                    <div *ngIf="f.category.errors" class="invalid-feedback">
+                        <div *ngIf="f.category.errors.required">Category is required</div>
+                    </div>            
+                </div>
+                <div class="form-group col-12">
+                    <label>Description of Product *</label>
+                    <textarea type="text" formControlName="description" class="form-control" placeholder="Description of Product" [ngClass]="{ 'is-invalid': (f.description.dirty || f.description.touched) && f.description.errors }"></textarea>
+                    <div *ngIf="f.description.errors && (f.description.dirty || f.description.touched)" class="invalid-feedback">
+                        <div *ngIf="f.description.errors.required">Description is required</div>
+                    </div>
+                </div>
+                <div class="form-group features col-12">
+                    <div class="row">
+                        <div class="col-md-6 featureBox">
+                            <label>Features</label>
+                            <input type="text" formControlName="feature" class="form-control" placeholder="New Feature">
+                            <button class="btn btn-primary btn-s" (click)="addFeature()">Add</button>
+                        </div>
+                        <div class="col-md-6 dataList">
+                            <div class="noData" *ngIf="!features.length">No feature added</div>
+                            <ul>
+                                <li *ngFor="let featureData of features;let i = index">
+                                    {{featureData}}
+                                    <span (click)="removeFeature(i)"><i class="fa fa-close"></i></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Product Name *</label>
+                    <input type="text" formControlName="name" class="form-control" placeholder="Product Name" [ngClass]="{ 'is-invalid': (f.name.dirty || f.name.touched) && f.name.errors }">
+                    <div *ngIf="f.name.errors && (f.name.dirty || f.name.touched)" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required">Product Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Current Price *</label>
+                    <input type="number" formControlName="price" class="form-control" placeholder="Current Price" [ngClass]="{ 'is-invalid': (f.price.dirty || f.price.touched) && f.price.errors }" (keyup)="calcReduction()">
+                    <div *ngIf="f.price.errors && (f.price.dirty || f.price.touched)" class="invalid-feedback">
+                        <div *ngIf="f.price.errors.required">Price is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>M.R.P. *</label>
+                    <input type="number" formControlName="priceNormal" class="form-control" placeholder="Maximum Retail Price" [ngClass]="{ 'is-invalid': (f.priceNormal.dirty || f.priceNormal.touched) && f.priceNormal.errors }" (keyup)="calcReduction()">
+                    <div *ngIf="f.priceNormal.errors && (f.priceNormal.dirty || f.priceNormal.touched)" class="invalid-feedback">
+                        <div *ngIf="f.priceNormal.errors.required">M.R.P. is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Seller</label>
+                    <input type="test" formControlName="seller" class="form-control" placeholder="Seller Name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Quantity</label>
+                    <input type="number" formControlName="quantity" class="form-control" placeholder="Quantity">
+                </div>
+                <div class="form-group col-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Upload Image *(You can upload multiple image at a time...maximum 5 images, each not more than 200kb).<br> It is better if you keep photo resolution 1x1 or 3x2<br><span class="text-primary">Your first image will be the thumbnail of product</span></label>
+                            <input id="file" type="file" multiple class="form-control" (change)="onFileChange($event)" formControlName="product" [ngClass]="{ 'is-invalid': (f.product.dirty || f.product.touched) && f.product.errors }" >
+                            <div *ngIf="fileErrorSize || fileErrorNumber" class="invalid-feedback-file">
+                                <div *ngIf="fileErrorNumber">You have selected more than 5 images, they will not upload</div>
+                                <div *ngIf="fileErrorSize">Image size more than 200kb will not upload</div>
+                            </div>   
+                            <div *ngIf="f.product.errors && (f.product.dirty || f.product.touched)" class="invalid-feedback">
+                                <div *ngIf="f.product.errors.required">Image is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 dataList">
+                            <div class="noData" *ngIf="!files.length">No Image Added</div>
+                            <ul>
+                                <li *ngFor="let data of files; let i= index">
+                                    <span>{{data.name}}</span>
+                                    <span (click)="removeImage(i)"><i class="fa fa-close"></i></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 submitBtn">
+                    <button class="btn btn-primary" [disabled]="productForm.invalid" (click)="addProduct()">Add Product</button>
+                </div>
+    
+        </form>
+    </div>
+    <div class="addProductLoading" [ngClass]="{'loading': addProductLoading}">
+        <span class="helper" ></span>
+    </div>
+</section>

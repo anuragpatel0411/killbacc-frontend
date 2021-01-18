@@ -1,0 +1,33 @@
+<div class="">
+    <div class="navigation">
+            <!-- <a href="" class="closebtn" onclick="closeNav()">&times;</a> -->
+            <div class="navItem">
+                <a routerLink="/admin/dashboard" class="{{activeDashboard}}">Dashboard</a> 
+            </div>
+            <div class="">
+                <a routerLink="/admin/add-category" class="{{activeCategory}}">Categories</a> 
+            </div>
+            <div class="navItem">
+                <a routerLink="/admin/add-product" class="{{activeProduct}}">Add Product</a>
+            </div>
+            <div class="navItem">
+                <a routerLink="/admin/promos" class="dropdown {{activePromo}}">Promos</a>
+            </div>
+            <!-- <div class="col-2">
+                <a routerLink="/admin/banner" class="{{activeBanner}}">Banner</a>
+            </div> -->
+            <div class="navItem">
+                <a routerLink="/admin/user-messages" class="{{activeMessage}}">Message</a>
+            </div>
+    </div>
+    <div class="main">
+            <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!-- <i class="fa fa-caret-down"></i>
+                    <div class="dropdown-content">
+                        <a href="#">Add Promo 1</a>
+                        <a href="#">Edit Promo</a>
+                        <a href="#">Promo List Delete</a>
+                      </div> -->
